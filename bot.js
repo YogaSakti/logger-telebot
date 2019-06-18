@@ -4,8 +4,8 @@ const bot = new TelegramBot(token, {polling: true});
 
 // YOUR CODE STARTS HERE
 bot.on('message', (msg) => {
-    const name = msg.from.first_name;
-    bot.sendMessage(msg.chat.id, 'Hello, ' + name + '!').then(() => {
-    console.log(msg);
-    });
+    if (msg.text == '/info'){
+        var info = 'Chat id: '+msg.chat.id +' Sender: ' + msg.from.username;
+        bot.sendMessage(msg.chat.id, info);
+    }
   });
