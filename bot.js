@@ -56,7 +56,7 @@ var resmessage = async () => {
 
 var send_gojec = async (nomer) => {
     var send = await gojec.doStuff(nomer);
-    bot.once('message', (msg) => {
+    bot.on('message', (msg) => {
         if (!send) {
             bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nStatus: Failed`);
         } else {
