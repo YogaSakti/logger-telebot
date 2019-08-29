@@ -73,7 +73,7 @@ const trnsfr = (accessToken, uuid, uniqid, qrid) => new Promise((resolve, reject
 				'X-User-Locale': 'en_ID',
 				'Content-Type': 'application/json; charset=UTF-8',
 				'User-Agent': 'okhttp/3.12.1',
-				pin: '##################' // PIN AKUN UTAMA
+				pin: `${process.env.pinGojec}` // PIN AKUN UTAMA
 			},
 			body: JSON.stringify(boday)
 		})

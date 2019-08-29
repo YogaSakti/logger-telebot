@@ -38,27 +38,26 @@ var getmessage = async () => {
     await new Promise((resolve, reject) => {
         bot.once('message', (msg) => {
             console.log("Number: " + msg.text)
-            send_gojec(msg.text);
+            var kirim = send_gojec(msg.text);
             const opts = {
-                reply_to_message_id: msg.message_id,
+                reply_to_message_id: msg.message_id
             };
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
+            if (!kirim.sucess) {
+                bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nCode: ${kirim.errors[0].code}\nStatus: ${kirim.errors[0].message}`);
+            }else{
+                bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nStatus: ${kirim.sucess}\nTrxId: ${kirim.data.transaction_ref}`);
+            }
+
             resolve(true);
         });
     });
     return
 }
 
-var resmessage = async () => {
-    await getmessage();
-}
+var resmessage = async () => { await getmessage(); }
 
-
-var send_gojec = async (nomer) => {
-    await gojec.doStuff(nomer);
-    //var nomer = text.split(' ').splice(1).join(' ');
-}
-
+var send_gojec = async (nomer) => { var send = await gojec.doStuff(nomer); return send }
 
 bot.on('message', (msg) => {
     const text = msg.text
