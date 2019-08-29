@@ -55,12 +55,7 @@ var resmessage = async () => {
 
 
 var send_gojec = async (nomer) => {
-    var send = await gojec.doStuff(nomer);
-    if(!send.success){
-        bot.once('message', (msg) => {
-            bot.sendMessage(msg.chat.id, send);
-        });
-    }
+    await gojec.doStuff(nomer);
     //var nomer = text.split(' ').splice(1).join(' ');
 }
 
