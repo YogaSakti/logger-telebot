@@ -46,7 +46,7 @@ var getmessage = async () => {
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
             if (!kirim.sucess) {
                 bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nCode: ${kirim.errors[0].code}\nStatus: ${kirim.errors[0].message}`);
-            }else{
+            } else {
                 bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nStatus: ${kirim.sucess}\nTrxId: ${kirim.data.transaction_ref}`);
             }
 
@@ -56,9 +56,15 @@ var getmessage = async () => {
     return
 }
 
-var resmessage = async () => { await getmessage(); }
+var resmessage = async () => {
+    await getmessage();
+}
 
-var send_gojec = async (nomer) => { var send = await gojec.doStuff(nomer); return send }
+var send_gojec = async (nomer) => {
+    var send = await gojec.doStuff(nomer);
+    console.log(send)
+    return send
+}
 
 bot.on('message', (msg) => {
     const text = msg.text
