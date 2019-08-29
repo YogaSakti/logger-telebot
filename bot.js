@@ -41,7 +41,7 @@ const ProcGojec = async () => {
             const opts = {
                 reply_to_message_id: msg.message_id
             };
-            bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
+            bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', opts);
             const kirim = await gojec.doStuff(msg.text);
             if (!kirim) {
                 bot.sendMessage(msg.chat.id, `Send RP.1 to ${msg.text}\nStatus: Failed`);
