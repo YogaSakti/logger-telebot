@@ -35,10 +35,10 @@ bot.on('message', (msg) => {
 
     if (text == '/gojec') {
         var nomer = text.split(' ').splice(1).join(' ');
-        try {
-            var send = await gojec.doStuff(nomer)
-        } catch (e) {}
-        bot.sendMessage(msg.chat.id, send);
+        //try {
+       //     var send = await gojec.doStuff(nomer)
+        //} catch (e) {}
+        //bot.sendMessage(msg.chat.id, send);
     }
 
 });
