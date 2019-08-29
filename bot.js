@@ -4,6 +4,7 @@ const bot = new TelegramBot(token, {
     polling: true
 });
 const gojec = require('./gojec.js')
+const delay = require('delay')
 
 const StartKeyboard = [
     ['/gojec'],
@@ -39,11 +40,11 @@ var getmessage = async () => {
         bot.once('message', (msg) => {
             console.log("Number: " + msg.text)
             var kirim = send_gojec(msg.text);
-            console.log(kirim)
             const opts = {
                 reply_to_message_id: msg.message_id
             };
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
+            delay(2)
             if (!kirim.sucess) {
                 bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nCode: ${kirim.errors[0].code}\nStatus: ${kirim.errors[0].message}`);
             } else {
@@ -62,7 +63,6 @@ var resmessage = async () => {
 
 var send_gojec = async (nomer) => {
     var send = await gojec.doStuff(nomer);
-    console.log(send)
     return send
 }
 

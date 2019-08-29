@@ -10,6 +10,7 @@
   "author": "yogs",
   "license": "ISC",
   "dependencies": {
+    "delay": "^4.3.0",
     "express": "^4.16.1",
     "instagram-web-api": "^2.0.0",
     "node-fetch": "^2.6.0",
