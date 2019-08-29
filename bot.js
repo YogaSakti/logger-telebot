@@ -31,19 +31,19 @@ bot.onText(/\/gojec/, (msg) => {
     };
     bot.sendMessage(msg.chat.id, `Number? (62849#####):`, opts);
     resmessage();
-    send_gojec(msg.text);
 });
 
 // Functions
 var getmessage = async () => {
     await new Promise((resolve, reject) => {
         bot.once('message', (msg) => {
-            console.log("User Message Is: " + msg.text)
+            console.log("Number: " + msg.text)
             const opts = {
                 reply_to_message_id: msg.message_id,
             };
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
             resolve(true);
+            send_gojec(msg.text);
         });
     });
     return
