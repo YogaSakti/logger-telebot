@@ -22,8 +22,7 @@ bot.on('message', (msg) => {
         var nomer = text.split(' ').splice(1).join(' ');
         ;(async () => {
             try {
-                const send = await gojec.doStuff(nomer)
-                return send
+                return await gojec.doStuff(nomer)
             } catch (e) { 
             }
         })();
