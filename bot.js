@@ -26,38 +26,33 @@ bot.onText(/\/start/, (msg) => {
 });
 
 
-bot.onText(/\/gojec/, (msg) => {
+bot.onText(/\/gojec/, async (msg) => {
     const opts = {
         reply_to_message_id: msg.message_id
     };
     bot.sendMessage(msg.chat.id, `Number? (62849#####):`, opts);
-    resmessage();
+    await ProcGojec();
 });
 
-const getmessage = async () => {
+const ProcGojec = async () => {
     await new Promise((resolve, reject) => {
         bot.once('message', async (msg) => {
-            console.log("Number: " + msg.text)
+            console.log("Send to: " + msg.text)
             const opts = {
                 reply_to_message_id: msg.message_id
             };
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
             const kirim = await gojec.doStuff(msg.text);
             if (!kirim) {
-                bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nStatus: Failed`);
+                bot.sendMessage(msg.chat.id, `Send RP.1 to ${msg.text}\nStatus: Failed`);
             } else {
                 const suc = `Send RP1 to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
             }
-
             resolve(true);
         });
     });
     return
-}
-
-const resmessage = async () => {
-    await getmessage();
 }
 
 
