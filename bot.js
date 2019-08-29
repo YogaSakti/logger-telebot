@@ -5,6 +5,10 @@ const bot = new TelegramBot(token, {
 });
 const gojec = require('./gojec.js')
 
+const StartKeyboard = [
+    ['a', 'b'],
+    ['Contact Us']
+  ]
 
 // YOUR CODE STARTS HERE
 
