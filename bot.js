@@ -39,7 +39,7 @@ const getmessage = async () => {
     await new Promise((resolve, reject) => {
         bot.once('message', (msg) => {
             console.log("Number: " + msg.text)
-            const kirim = send_gojec(msg.text);
+            const kirim = await send_gojec(msg.text);
             const opts = {
                 reply_to_message_id: msg.message_id
             };
@@ -62,16 +62,8 @@ const resmessage = async () => {
 }
 
 const send_gojec = async (nomer) => {
-    await gojec.doStuff(nomer);
-    // bot.on('message', (msg) => {
-    //     if (!send) {
-    //         bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nStatus: Failed`);
-    //     } else {
-    //         var suc = `Send RP1 to ${msg.text}\nStatus: ${send.sucess}\nTrxId: ${send.data.transaction_ref}`
-    //         bot.sendMessage(msg.chat.id, suc);
-    //     }
-    // })
-    // return send
+    const send = await gojec.doStuff(nomer);
+    return send
 }
 
 bot.on('message', (msg) => {
