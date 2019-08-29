@@ -20,12 +20,9 @@ bot.on('message', (msg) => {
 
     if (text == '/gojec') {
         var nomer = text.split(' ').splice(1).join(' ');
-        ;(async () => {
-            try {
-                return await gojec.doStuff(nomer)
-            } catch (e) { 
-            }
-        })();
+        try {
+            var send = await gojec.doStuff(nomer)
+        } catch (e) {}
         bot.sendMessage(msg.chat.id, send);
     }
 
