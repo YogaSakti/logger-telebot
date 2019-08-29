@@ -42,8 +42,8 @@ var getmessage = async () => {
                 reply_to_message_id: msg.message_id,
             };
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
-            resolve(true);
             send_gojec(msg.text);
+            resolve(true);
         });
     });
     return
