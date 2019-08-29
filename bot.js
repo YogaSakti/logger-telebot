@@ -39,7 +39,7 @@ const getmessage = async () => {
     await new Promise((resolve, reject) => {
         bot.once('message', (msg) => {
             console.log("Number: " + msg.text)
-            const kirim = await send_gojec(msg.text);
+            const kirim = send_gojec(msg.text);
             const opts = {
                 reply_to_message_id: msg.message_id
             };
