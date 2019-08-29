@@ -34,20 +34,19 @@ bot.onText(/\/gojec/, (msg) => {
     resmessage();
 });
 
-// Functions
 const getmessage = async () => {
     await new Promise((resolve, reject) => {
         bot.once('message', async (msg) => {
             console.log("Number: " + msg.text)
-            const kirim = await gojec.doStuff(msg.text); //send_gojec(msg.text);
             const opts = {
                 reply_to_message_id: msg.message_id
             };
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
+            const kirim = await gojec.doStuff(msg.text);
             if (!kirim) {
                 bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nStatus: Failed`);
             } else {
-                const suc = `Send RP1 to ${msg.text}\nStatus: ${kirim.sucess}\nTrxId: ${kirim.data.transaction_ref}`
+                const suc = `Send RP1 to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
             }
 
@@ -61,10 +60,6 @@ const resmessage = async () => {
     await getmessage();
 }
 
-const send_gojec = async (nomer) => {
-    const send = await gojec.doStuff(nomer);
-    return send
-}
 
 bot.on('message', (msg) => {
     const text = msg.text
