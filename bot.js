@@ -38,11 +38,11 @@ var getmessage = async () => {
     await new Promise((resolve, reject) => {
         bot.once('message', (msg) => {
             console.log("Number: " + msg.text)
+            send_gojec(msg.text);
             const opts = {
                 reply_to_message_id: msg.message_id,
             };
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
-            send_gojec(msg.text);
             resolve(true);
         });
     });
