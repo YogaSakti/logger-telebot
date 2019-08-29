@@ -45,9 +45,8 @@ var getmessage = async () => {
             };
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
             delay(1)
-            if (!kirim.sucess) {
-                var er = `Send RP1 to ${msg.text}\nCode: ${kirim.errors[0].code}\nStatus: ${kirim.errors[0].message}`
-                bot.sendMessage(msg.chat.id, er);
+            if (!kirim) {
+                bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nStatus: Failed`);
             } else {
                 var suc = `Send RP1 to ${msg.text}\nStatus: ${kirim.sucess}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
@@ -65,7 +64,9 @@ var resmessage = async () => {
 
 var send_gojec = async (nomer) => {
     var send = await gojec.doStuff(nomer);
-    return send
+    if(send){
+        return send
+    }
 }
 
 bot.on('message', (msg) => {

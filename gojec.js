@@ -90,8 +90,13 @@ const trnsfr = (accessToken, uuid, uniqid, qrid) => new Promise((resolve, reject
 async function doStuff(Number) {
 	const uniqueid = await genUniqueId(16);
 	const qrid = await getqr(accessToken, uuid, uniqueid, Number)
-	const kirimsaldo = await trnsfr(accessToken, uuid, uniqueid, qrid.data.qr_id)
-	console.log(kirimsaldo)
-	return kirimsaldo
+	if (!qrid.data.qr_id) {
+		const kirimsaldo = await trnsfr(accessToken, uuid, uniqueid, qrid.data.qr_id)
+		console.log(kirimsaldo)
+		return kirimsaldo
+	}else{
+		return false
+	}
+
 }
 module.exports.doStuff = doStuff;
