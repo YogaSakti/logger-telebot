@@ -44,11 +44,13 @@ var getmessage = async () => {
                 reply_to_message_id: msg.message_id
             };
             bot.sendMessage(msg.chat.id, 'Thanks, Your Request Received', opts);
-            delay(2)
+            delay(1)
             if (!kirim.sucess) {
-                bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nCode: ${kirim.errors[0].code}\nStatus: ${kirim.errors[0].message}`);
+                var er = `Send RP1 to ${msg.text}\nCode: ${kirim.errors[0].code}\nStatus: ${kirim.errors[0].message}`
+                bot.sendMessage(msg.chat.id, er);
             } else {
-                bot.sendMessage(msg.chat.id, `Send RP1 to ${msg.text}\nStatus: ${kirim.sucess}\nTrxId: ${kirim.data.transaction_ref}`);
+                var suc = `Send RP1 to ${msg.text}\nStatus: ${kirim.sucess}\nTrxId: ${kirim.data.transaction_ref}`
+                bot.sendMessage(msg.chat.id, suc);
             }
 
             resolve(true);
