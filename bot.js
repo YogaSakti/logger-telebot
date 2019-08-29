@@ -31,6 +31,7 @@ bot.onText(/\/gojec/, (msg) => {
     };
     bot.sendMessage(msg.chat.id, `Number? (62849#####):`, opts);
     resmessage();
+    send_gojec(msg.text);
 });
 
 // Functions
@@ -53,7 +54,15 @@ var resmessage = async () => {
 }
 
 
-
+var send_gojec = async (nomer) => {
+    var send = await gojec.doStuff(nomer);
+    if(!send.success){
+        bot.once('message', (msg) => {
+            bot.sendMessage(msg.chat.id, send);
+        });
+    }
+    //var nomer = text.split(' ').splice(1).join(' ');
+}
 
 
 bot.on('message', (msg) => {
@@ -65,14 +74,6 @@ bot.on('message', (msg) => {
     if (text == '/login-ig') {
         var info = 'Chat id: ' + msg.chat.id + ' Sender: ' + msg.from.username;
         bot.sendMessage(msg.chat.id, info);
-    }
-
-    if (text == '/gojec') {
-        var nomer = text.split(' ').splice(1).join(' ');
-        //try {
-        //     var send = await gojec.doStuff(nomer)
-        //} catch (e) {}
-        //bot.sendMessage(msg.chat.id, send);
     }
 
 });

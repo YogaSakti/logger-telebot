@@ -91,10 +91,6 @@ async function doStuff(Number) {
 	const uniqueid = await genUniqueId(16);
 	const qrid = await getqr(accessToken, uuid, uniqueid, Number)
 	const kirimsaldo = await trnsfr(accessToken, uuid, uniqueid, qrid.data.qr_id)
-	if (!kirimsaldo.success) {
-		return kirimsaldo
-	} else {
-		return kirimsaldo
-	}
+	return kirimsaldo
 }
 module.exports.doStuff = doStuff;
