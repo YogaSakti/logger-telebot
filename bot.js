@@ -7,6 +7,21 @@ const gojec = require('./gojec.js')
 
 
 // YOUR CODE STARTS HERE
+
+bot.onText(/\/start/, (msg) => {
+    const opts = {
+      reply_to_message_id: msg.message_id,
+      reply_markup: JSON.stringify({
+        keyboard: StartKeyboard,
+        resize_keyboard: true,
+        one_time_keyboard: true
+      })
+    };
+    bot.sendMessage(msg.chat.id, `Hello`, opts);
+  });
+
+
+
 bot.on('message', (msg) => {
     const text = msg.text
     if (text == '/info') {
