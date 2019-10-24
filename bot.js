@@ -45,7 +45,7 @@ const ProcGojec = async () => {
             if (!kirim) {
                 bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
             } else {
-                const suc = `Send RP1 to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
+                const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
             }
             resolve(true);
