@@ -15,7 +15,7 @@ const genUniqueId = length =>
 	});
 
 function randInt() {
-	return Math.floor((Math.random()*9)+1);
+	return Math.floor((Math.random()*50)+1);
 }
 
 const getqr = (accessToken, uuid, uniqid, phoneNumber) => new Promise((resolve, reject) => {
