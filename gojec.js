@@ -14,6 +14,9 @@ const genUniqueId = length =>
 		resolve(text);
 	});
 
+function randInt() {
+	return Math.floor((Math.random()*9)+1);
+}
 
 const getqr = (accessToken, uuid, uniqid, phoneNumber) => new Promise((resolve, reject) => {
 	const url = `https://api.gojekapi.com/wallet/qr-code?phone_number=%2B${phoneNumber}`;
@@ -51,7 +54,7 @@ const trnsfr = (accessToken, uuid, uniqid, qrid) => new Promise((resolve, reject
 
 	// JANGAN LUPA JUMLAH SALDO YANG AKAN DI TF 
 	const boday = {
-		"amount": "1",
+		"amount": `${randInt()}`,
 		"description": "💰",
 		"qr_id": `${qrid}`
 	};

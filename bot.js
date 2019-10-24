@@ -4,7 +4,6 @@ const bot = new TelegramBot(token, {
     polling: true
 });
 const gojec = require('./gojec.js')
-const delay = require('delay')
 
 const StartKeyboard = [
     ['/gojec'],
@@ -30,7 +29,7 @@ bot.onText(/\/gojec/, async (msg) => {
     const opts = {
         reply_to_message_id: msg.message_id
     };
-    bot.sendMessage(msg.chat.id, `Number? (62849#####):`, opts);
+    bot.sendMessage(msg.chat.id, `Number? (Awali dengan 62/1):`, opts);
     await ProcGojec();
 });
 
