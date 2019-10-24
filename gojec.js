@@ -97,9 +97,11 @@ async function doStuff(Number) {
 	// console.log(qrid)
 	if (qrid.success) {
 		const kirimsaldo = await trnsfr(accessToken, uuid, uniqueid, qrid.data.qr_id)
-		console.log(kirimsaldo)
+		console.log(`Status: ${qrid.success}`)
+		console.log(`Trx ref: ${kirimsaldo.data.transaction_ref}`)
 		return kirimsaldo
 	}else{
+		console.log(`Status: ${qrid.success}`)
 		return false
 	}
 
