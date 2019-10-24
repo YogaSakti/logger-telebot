@@ -67,3 +67,11 @@ bot.on('message', (msg) => {
     }
 
 });
+
+process.on('uncaughtException', function (error) {
+	console.log("\x1b[31m", "Exception: ", error, "\x1b[0m");
+});
+
+process.on('unhandledRejection', function (error, p) {
+	console.log("\x1b[31m","Rejection: ", error.message, "\x1b[0m");
+});
