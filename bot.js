@@ -43,7 +43,7 @@ const ProcGojec = async () => {
             bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', opts);
             const kirim = await gojec.doStuff(msg.text);
             if (!kirim) {
-                bot.sendMessage(msg.chat.id, `Send RP.1 to ${msg.text}\nStatus: Failed`);
+                bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
             } else {
                 const suc = `Send RP1 to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
