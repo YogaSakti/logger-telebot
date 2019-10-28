@@ -100,7 +100,7 @@ async function doStuff(Number) {
 		console.log(`Trx ref: ${kirimsaldo.data.transaction_ref}`)
 		return kirimsaldo
 	}else{
-		console.log(`Status: ${qrid}`)
+		console.log(`Status: ${JSON.stringify(qrid)}`)
 		return false
 	}
 
