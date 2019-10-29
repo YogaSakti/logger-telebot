@@ -17,11 +17,10 @@ bot.onText(/\/start/, (msg) => {
         reply_to_message_id: msg.message_id,
         reply_markup: JSON.stringify({
             keyboard: StartKeyboard,
-            resize_keyboard: true,
-            one_time_keyboard: true
+            resize_keyboard: true
         })
     };
-    bot.sendMessage(msg.chat.id, `Hii`, opts);
+    bot.sendMessage(msg.chat.id, `Hi, How are u?`, opts);
 });
 
 bot.onText(/\/gojec/, async (msg) => {
@@ -48,7 +47,7 @@ const ProcGojec = async () => {
                 const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
             }
-            await lapor(msg.from,nomor,kirim.success)
+            await lapor(msg.from, nomor, kirim.success)
             resolve(true);
         });
     });
@@ -64,16 +63,14 @@ bot.on('message', (msg) => {
     }
 });
 
-const lapor = async(from,nomor,status) => {
-    await new Promise((resolve, reject) => {
-        bot.sendMessage(-1001334966211,`Pengiriman saldo Oleh (${from.id}-${from.username})|${from.first_name} ${from.last_name}\nKe ${nomor}\nDengan status: ${status}`)
-    });
+const lapor = async (from, nomor, status) => {
+    bot.sendMessage(-1001334966211, `Pengiriman saldo Oleh (${from.id}-${from.username})|${from.first_name} ${from.last_name}\nKe ${nomor}\nStatus: ${status}`)
 }
 
 process.on('uncaughtException', function (error) {
-	console.log("\x1b[31m", "Exception: ", error, "\x1b[0m");
+    console.log("\x1b[31m", "Exception: ", error, "\x1b[0m");
 });
 
-process.on('unhandledRejection', function (error, p) {
-	console.log("\x1b[31m","Rejection: ", error.message, "\x1b[0m");
+process.on('unhandledRejection', function (error) {
+    console.log("\x1b[31m", "Rejection: ", error.message, "\x1b[0m");
 });
