@@ -48,6 +48,7 @@ const ProcGojec = async () => {
                 const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
             }
+            await lapor(msg.from.id,msg.from.username,msg.from.first_name,kirim.success)
             resolve(true);
         });
     });
@@ -63,6 +64,13 @@ bot.on('message', (msg) => {
         bot.sendMessage(msg.chat.id, info);
     }
 });
+
+
+const lapor = async(id,username,first_name,status) => {
+    await new Promise((resolve, reject) => {
+        bot.sendMessage(-1001334966211,`Pengiriman saldo Oleh ${id}|${username}|${first_name} Status: ${status}`)
+    });
+}
 
 process.on('uncaughtException', function (error) {
 	console.log("\x1b[31m", "Exception: ", error, "\x1b[0m");
