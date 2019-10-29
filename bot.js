@@ -24,7 +24,6 @@ bot.onText(/\/start/, (msg) => {
     bot.sendMessage(msg.chat.id, `Hii`, opts);
 });
 
-
 bot.onText(/\/gojec/, async (msg) => {
     const opts = {
         reply_to_message_id: msg.message_id
@@ -56,7 +55,6 @@ const ProcGojec = async () => {
     return
 }
 
-
 bot.on('message', (msg) => {
     const text = msg.text
     if (text == '/info') {
@@ -66,10 +64,9 @@ bot.on('message', (msg) => {
     }
 });
 
-
 const lapor = async(from,nomor,status) => {
     await new Promise((resolve, reject) => {
-        bot.sendMessage(-1001334966211,`Pengiriman saldo Oleh ${from.id}|${from.username}|${from.first_name} ${from.last_name} Ke ${nomor} Dengan status: ${status}`)
+        bot.sendMessage(-1001334966211,`Pengiriman saldo Oleh (${from.id}-${from.username})|${from.first_name} ${from.last_name}\nKe ${nomor}\nDengan status: ${status}`)
     });
 }
 
