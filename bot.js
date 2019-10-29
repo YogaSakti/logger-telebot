@@ -41,14 +41,15 @@ const ProcGojec = async () => {
                 reply_to_message_id: msg.message_id
             };
             bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', opts);
-            const kirim = await gojec.doStuff(msg.text);
+            var nomor = msg.text;
+            const kirim = await gojec.doStuff(nomor);
             if (!kirim) {
                 bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
             } else {
                 const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
             }
-            await lapor(msg.from.id,msg.from.username,msg.from.first_name,kirim.success)
+            await lapor(msg.from,nomor,kirim.success)
             resolve(true);
         });
     });
@@ -66,9 +67,9 @@ bot.on('message', (msg) => {
 });
 
 
-const lapor = async(id,username,first_name,status) => {
+const lapor = async(from,nomor,status) => {
     await new Promise((resolve, reject) => {
-        bot.sendMessage(-1001334966211,`Pengiriman saldo Oleh ${id}|${username}|${first_name} Status: ${status}`)
+        bot.sendMessage(-1001334966211,`Pengiriman saldo Oleh ${from.id}|${from.username}|${from.first_name} ${from.last_name} Ke ${nomor} Dengan status: ${status}`)
     });
 }
 
