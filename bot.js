@@ -59,13 +59,9 @@ bot.on('message', (msg) => {
     const text = msg.text
     if (text == '/info') {
         var info = 'Chat id: ' + msg.chat.id + ' Sender: ' + msg.from.username;
+        console.log(msg)
         bot.sendMessage(msg.chat.id, info);
     }
-    if (text == '/login-ig') {
-        var info = 'Chat id: ' + msg.chat.id + ' Sender: ' + msg.from.username;
-        bot.sendMessage(msg.chat.id, info);
-    }
-
 });
 
 process.on('uncaughtException', function (error) {
