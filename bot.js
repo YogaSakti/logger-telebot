@@ -65,7 +65,7 @@ bot.on('message', async (msg) => {
     if (text == '/CekSaldo') {
         var Saldo = await gojec.cekSaldo()
         console.log(Saldo)
-        bot.sendMessage(msg.chat.id, `Sisa Saldo: ${Saldo.data.currency} ${Saldo.data.balance}\nAkun Locked?: ${Saldo.data.locked}`);
+        bot.sendMessage(msg.chat.id, `Owner: ${Saldo.data.name}\nNumber: ${Saldo.data.mobile}\nSisa Saldo: ${Saldo.data.currency} ${Saldo.data.balance}\nAkun Locked?: ${Saldo.data.locked}\nPLEASE DONATE :)`);
     }
 });
 
