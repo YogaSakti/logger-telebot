@@ -110,27 +110,28 @@ async function doStuff(Number) {
 
 // =========================================================================================
 
-const cekSaldo = (accessToken, uuid, uniqid) =>
-	new Promise((resolve, reject) => {
+const cekSaldo = () =>
+	new Promise(async(resolve, reject) => {
 		const url = `https://api.gojekapi.com/wallet/profile/detailed`;
-
+		const uniqid = await genUniqueId(16);
 		fetch(url, {
 				method: 'GET',
 				headers: {
-					'X-Session-ID': uuid,
-					'Accept': 'application/json',
-					'X-Platform': 'Android',
-					'X-UniqueId': uniqid,
-					'X-AppVersion': '3.34.1',
-					'X-AppId': 'com.gojek.app',
-					'X-PhoneModel': 'Android,Custom Phone - 6.0.0 - API 23 - 768x1280',
-					'X-PushTokenType': 'FCM',
-					'X-DeviceOS': 'Android,6.0',
+					'User-Agent': 'okhttp/3.12.1',
+					Connection: 'Keep-Alive',
+					'X-Location-Accuracy': '23.544',
+					'X-Location': '-6.8776426,107.5798444',
+					'X-User-Locale': 'id_ID',
+					'Accept-Language': 'id-ID',
+					'X-PhoneModel': 'Google,Pixel 3 XL',
+					'X-DeviceOS': 'Android,9.0',
 					Authorization: `Bearer ${accessToken}`,
-					'Accept-Language': 'en-ID',
-					'X-User-Locale': 'en_ID',
-					'Content-Type': 'application/json; charset=UTF-8',
-					'User-Agent': 'okhttp/3.12.1'
+					'X-UniqueId': uniqid,
+					'X-Platform': 'Android',
+					'X-AppId': 'com.gojek.app',
+					'X-AppVersion': '3.40.0',
+					'X-Session-ID': uuid,
+					'Content-Type': 'application/json',
 				}
 			})
 			.then(res => res.json())
@@ -145,4 +146,4 @@ const cekSaldo = (accessToken, uuid, uniqid) =>
 module.exports = {
 	doStuff,
 	cekSaldo
- }
+}
