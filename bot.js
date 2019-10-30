@@ -64,8 +64,8 @@ bot.on('message', (msg) => {
     }
     if (text == '/CekSaldo') {
         var Saldo = gojec.celSaldo()
-        console.log(msg)
-        bot.sendMessage(msg.chat.id, info);
+        console.log(Saldo)
+        bot.sendMessage(msg.chat.id, Saldo);
     }
 });
 
