@@ -60,10 +60,10 @@ bot.on('message', async (msg) => {
     if (text == '/info') {
         var info = 'Chat info: ' + msg;
         console.log(msg)
-        bot.sendMessage(msg.chat.id, info);
+        bot.sendMessage(msg.chat.id, JSON.parse(info));
     }
     if (text == '/CekSaldo') {
-        var Saldo = await gojec.celSaldo()
+        var Saldo = await gojec.cekSaldo()
         console.log(Saldo)
         bot.sendMessage(msg.chat.id, `Sisa Saldo: ${Saldo.data.balance}`);
     }
