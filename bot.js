@@ -55,7 +55,7 @@ const ProcGojec = async () => {
     return
 }
 
-bot.on('message', (msg) => {
+bot.on('message', async (msg) => {
     const text = msg.text
     if (text == '/info') {
         var info = 'Chat info: ' + msg;
@@ -63,9 +63,9 @@ bot.on('message', (msg) => {
         bot.sendMessage(msg.chat.id, info);
     }
     if (text == '/CekSaldo') {
-        var Saldo = gojec.celSaldo()
+        var Saldo = await gojec.celSaldo()
         console.log(Saldo)
-        bot.sendMessage(msg.chat.id, Saldo);
+        bot.sendMessage(msg.chat.id, `Sisa Saldo: ${Saldo.data.balance}`);
     }
 });
 
