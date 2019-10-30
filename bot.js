@@ -57,7 +57,12 @@ const ProcGojec = async () => {
 bot.on('message', (msg) => {
     const text = msg.text
     if (text == '/info') {
-        var info = 'Chat id: ' + msg.chat.id + ' Sender: ' + msg.from.username;
+        var info = 'Chat info: ' + msg;
+        console.log(msg)
+        bot.sendMessage(msg.chat.id, info);
+    }
+    if (text == '/CekSaldo') {
+        var Saldo = gojec.celSaldo()
         console.log(msg)
         bot.sendMessage(msg.chat.id, info);
     }

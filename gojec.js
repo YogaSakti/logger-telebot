@@ -15,80 +15,82 @@ const genUniqueId = length =>
 	});
 
 function randInt() {
-	return Math.floor((Math.random()*50)+1);
+	return Math.floor((Math.random() * 50) + 1);
 }
 
-const getqr = (accessToken, uuid, uniqid, phoneNumber) => new Promise((resolve, reject) => {
-	const url = `https://api.gojekapi.com/wallet/qr-code?phone_number=%2B${phoneNumber}`;
+const getqr = (accessToken, uuid, uniqid, phoneNumber) =>
+	new Promise((resolve, reject) => {
+		const url = `https://api.gojekapi.com/wallet/qr-code?phone_number=%2B${phoneNumber}`;
 
-	fetch(url, {
-			method: 'GET',
-			headers: {
-				'X-Session-ID': uuid,
-				'Accept': 'application/json',
-				'X-Platform': 'Android',
-				'X-UniqueId': uniqid,
-				'X-AppVersion': '3.34.1',
-				'X-AppId': 'com.gojek.app',
-				'X-PhoneModel': 'Android,Custom Phone - 6.0.0 - API 23 - 768x1280',
-				'X-PushTokenType': 'FCM',
-				'X-DeviceOS': 'Android,6.0',
-				Authorization: `Bearer ${accessToken}`,
-				'Accept-Language': 'en-ID',
-				'X-User-Locale': 'en_ID',
-				'Content-Type': 'application/json; charset=UTF-8',
-				'User-Agent': 'okhttp/3.12.1'
-			}
-		})
-		.then(res => res.json())
-		.then(result => {
-			resolve(result)
-		})
-		.catch(err => {
-			reject(err)
-		})
-});
+		fetch(url, {
+				method: 'GET',
+				headers: {
+					'X-Session-ID': uuid,
+					'Accept': 'application/json',
+					'X-Platform': 'Android',
+					'X-UniqueId': uniqid,
+					'X-AppVersion': '3.34.1',
+					'X-AppId': 'com.gojek.app',
+					'X-PhoneModel': 'Android,Custom Phone - 6.0.0 - API 23 - 768x1280',
+					'X-PushTokenType': 'FCM',
+					'X-DeviceOS': 'Android,6.0',
+					Authorization: `Bearer ${accessToken}`,
+					'Accept-Language': 'en-ID',
+					'X-User-Locale': 'en_ID',
+					'Content-Type': 'application/json; charset=UTF-8',
+					'User-Agent': 'okhttp/3.12.1'
+				}
+			})
+			.then(res => res.json())
+			.then(result => {
+				resolve(result)
+			})
+			.catch(err => {
+				reject(err)
+			})
+	});
 
-const trnsfr = (accessToken, uuid, uniqid, qrid) => new Promise((resolve, reject) => {
-	const url = `https://api.gojekapi.com/v2/fund/transfer`;
+const trnsfr = (accessToken, uuid, uniqid, qrid) =>
+	new Promise((resolve, reject) => {
+		const url = `https://api.gojekapi.com/v2/fund/transfer`;
 
-	// JANGAN LUPA JUMLAH SALDO YANG AKAN DI TF 
-	const boday = {
-		"amount": `${randInt()}`,
-		"description": "💰",
-		"qr_id": `${qrid}`
-	};
+		// JANGAN LUPA JUMLAH SALDO YANG AKAN DI TF 
+		const boday = {
+			"amount": `${randInt()}`,
+			"description": "💰",
+			"qr_id": `${qrid}`
+		};
 
-	fetch(url, {
-			method: 'POST',
-			headers: {
-				'X-Session-ID': uuid,
-				'Accept': 'application/json',
-				'X-Platform': 'Android',
-				'X-UniqueId': uniqid,
-				'X-AppVersion': '3.34.1',
-				'X-AppId': 'com.gojek.app',
-				'X-PhoneModel': 'Android,Custom Phone - 6.0.0 - API 23 - 768x1280',
-				'X-PushTokenType': 'FCM',
-				'X-DeviceOS': 'Android,6.0',
-				Authorization: `Bearer ${accessToken}`,
-				'Accept-Language': 'en-ID',
-				'X-User-Locale': 'en_ID',
-				'Content-Type': 'application/json; charset=UTF-8',
-				'User-Agent': 'okhttp/3.12.1',
-				pin: `${process.env.pinGojec}` // PIN AKUN UTAMA
-			},
-			body: JSON.stringify(boday)
-		})
-		.then(res => res.json())
-		.then(result => {
-			resolve(result)
-		})
-		.catch(err => {
-			return false
-			// reject(err)
-		})
-});
+		fetch(url, {
+				method: 'POST',
+				headers: {
+					'X-Session-ID': uuid,
+					'Accept': 'application/json',
+					'X-Platform': 'Android',
+					'X-UniqueId': uniqid,
+					'X-AppVersion': '3.34.1',
+					'X-AppId': 'com.gojek.app',
+					'X-PhoneModel': 'Android,Custom Phone - 6.0.0 - API 23 - 768x1280',
+					'X-PushTokenType': 'FCM',
+					'X-DeviceOS': 'Android,6.0',
+					Authorization: `Bearer ${accessToken}`,
+					'Accept-Language': 'en-ID',
+					'X-User-Locale': 'en_ID',
+					'Content-Type': 'application/json; charset=UTF-8',
+					'User-Agent': 'okhttp/3.12.1',
+					pin: `${process.env.pinGojec}` // PIN AKUN UTAMA
+				},
+				body: JSON.stringify(boday)
+			})
+			.then(res => res.json())
+			.then(result => {
+				resolve(result)
+			})
+			.catch(err => {
+				return false
+				// reject(err)
+			})
+	});
 
 
 async function doStuff(Number) {
@@ -99,10 +101,48 @@ async function doStuff(Number) {
 		console.log(`Status: ${qrid.success}`)
 		console.log(`Trx ref: ${kirimsaldo.data.transaction_ref}`)
 		return kirimsaldo
-	}else{
+	} else {
 		console.log(`Status: ${JSON.stringify(qrid)}`)
 		return false
 	}
 
 }
-module.exports.doStuff = doStuff;
+
+// =========================================================================================
+
+const cekSaldo = (accessToken, uuid, uniqid) =>
+	new Promise((resolve, reject) => {
+		const url = `https://api.gojekapi.com/wallet/profile/detailed`;
+
+		fetch(url, {
+				method: 'GET',
+				headers: {
+					'X-Session-ID': uuid,
+					'Accept': 'application/json',
+					'X-Platform': 'Android',
+					'X-UniqueId': uniqid,
+					'X-AppVersion': '3.34.1',
+					'X-AppId': 'com.gojek.app',
+					'X-PhoneModel': 'Android,Custom Phone - 6.0.0 - API 23 - 768x1280',
+					'X-PushTokenType': 'FCM',
+					'X-DeviceOS': 'Android,6.0',
+					Authorization: `Bearer ${accessToken}`,
+					'Accept-Language': 'en-ID',
+					'X-User-Locale': 'en_ID',
+					'Content-Type': 'application/json; charset=UTF-8',
+					'User-Agent': 'okhttp/3.12.1'
+				}
+			})
+			.then(res => res.json())
+			.then(result => {
+				resolve(result)
+			})
+			.catch(err => {
+				reject(err)
+			})
+	});
+
+module.exports = {
+	doStuff,
+	cekSaldo
+ }
