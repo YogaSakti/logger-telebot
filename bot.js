@@ -6,7 +6,8 @@ const bot = new TelegramBot(token, {
 const gojec = require('./gojec.js')
 
 const StartKeyboard = [
-    ['/gojec'],
+    ['/SendSaldo'],
+    ['/CekSaldo'],
     ['/info']
 ]
 
@@ -23,7 +24,7 @@ bot.onText(/\/start/, (msg) => {
     bot.sendMessage(msg.chat.id, `Hi, How are u?`, opts);
 });
 
-bot.onText(/\/gojec/, async (msg) => {
+bot.onText(/\/SendSaldo/, async (msg) => {
     const opts = {
         reply_to_message_id: msg.message_id
     };
