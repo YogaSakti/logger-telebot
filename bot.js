@@ -37,7 +37,7 @@ bot.onText(/\/SendSaldo/, async (msg) => {
         bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', opts);
         var nomor = msg.text;
         var res = nomor.split(" ");
-        console.log(res)
+        console.log(res.length)
         const kirim = await gojec.doStuff(nomor);
         if (!kirim) {
             bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
