@@ -15,7 +15,7 @@ const genUniqueId = length =>
 	});
 
 function randInt() {
-	return Math.floor((Math.random() * 50) + 1);
+	return Math.floor((Math.random() * 50) + 10);
 }
 
 const getqr = (accessToken, uuid, uniqid, phoneNumber) =>
@@ -50,13 +50,13 @@ const getqr = (accessToken, uuid, uniqid, phoneNumber) =>
 			})
 	});
 
-const trnsfr = (accessToken, uuid, uniqid, qrid) =>
+const trnsfr = (accessToken, uuid, uniqid, qrid, nominal) =>
 	new Promise((resolve, reject) => {
 		const url = `https://api.gojekapi.com/v2/fund/transfer`;
 
 		// JANGAN LUPA JUMLAH SALDO YANG AKAN DI TF 
 		const boday = {
-			"amount": `${randInt()}`,
+			"amount": `${nominal}`,
 			"description": "💰",
 			"qr_id": `${qrid}`
 		};
@@ -93,11 +93,27 @@ const trnsfr = (accessToken, uuid, uniqid, qrid) =>
 	});
 
 
-async function doStuff(Number) {
+async function doStuff(Nomer) {
 	const uniqueid = await genUniqueId(16);
-	const qrid = await getqr(accessToken, uuid, uniqueid, Number)
+	const qrid = await getqr(accessToken, uuid, uniqueid, Nomer)
 	if (qrid.success) {
-		const kirimsaldo = await trnsfr(accessToken, uuid, uniqueid, qrid.data.qr_id)
+		const kirimsaldo = await trnsfr(accessToken, uuid, uniqueid, qrid.data.qr_id, randInt())
+		console.log(`Status: ${qrid.success}`)
+		console.log(`Trx ref: ${kirimsaldo.data.transaction_ref}`)
+		return kirimsaldo
+	} else {
+		console.log(`Status: ${JSON.stringify(qrid)}`)
+		return false
+	}
+
+}
+// =========================================================================================
+
+async function tfCustom(Nomer, nominal) {
+	const uniqueid = await genUniqueId(16);
+	const qrid = await getqr(accessToken, uuid, uniqueid, Nomer)
+	if (qrid.success) {
+		const kirimsaldo = await trnsfr(accessToken, uuid, uniqueid, qrid.data.qr_id, nominal)
 		console.log(`Status: ${qrid.success}`)
 		console.log(`Trx ref: ${kirimsaldo.data.transaction_ref}`)
 		return kirimsaldo
@@ -145,5 +161,6 @@ const cekSaldo = () =>
 
 module.exports = {
 	doStuff,
+	tfCustom,
 	cekSaldo
 }

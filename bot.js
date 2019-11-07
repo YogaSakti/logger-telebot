@@ -28,32 +28,27 @@ bot.onText(/\/SendSaldo/, async (msg) => {
     const opts = {
         reply_to_message_id: msg.message_id
     };
-    bot.sendMessage(msg.chat.id, `Number? (Awali dengan 62/1):`, opts);
-    await ProcGojec();
-});
-
-const ProcGojec = async () => {
-    await new Promise((resolve, reject) => {
-        bot.once('message', async (msg) => {
-            console.log("Send to: " + msg.text)
-            const opts = {
-                reply_to_message_id: msg.message_id
-            };
-            bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', opts);
-            var nomor = msg.text;
-            const kirim = await gojec.doStuff(nomor);
-            if (!kirim) {
-                bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
-            } else {
-                const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
-                bot.sendMessage(msg.chat.id, suc);
-            }
-            await lapor(msg.from, nomor, kirim.success)
-            resolve(true);
-        });
+    bot.sendMessage(msg.chat.id, `Nomer? (Awali dengan 62/1):`, opts);
+    bot.once('message', async (msg) => {
+        console.log("Send to: " + msg.text)
+        const opts = {
+            reply_to_message_id: msg.message_id
+        };
+        bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', opts);
+        var nomor = msg.text;
+        var res = nomor.split(" ");
+        console.log(res)
+        const kirim = await gojec.doStuff(nomor);
+        if (!kirim) {
+            bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
+        } else {
+            const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
+            bot.sendMessage(msg.chat.id, suc);
+        }
+        await lapor(msg.from, nomor, kirim.success)
+        resolve(true);
     });
-    return
-}
+});
 
 bot.on('message', async (msg) => {
     const text = msg.text
