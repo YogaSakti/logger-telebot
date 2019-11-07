@@ -37,15 +37,26 @@ bot.onText(/\/SendSaldo/, async (msg) => {
         bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', opts);
         var nomor = msg.text;
         var res = nomor.split(" ");
-        console.log(res.length)
-        const kirim = await gojec.doStuff(nomor);
-        if (!kirim) {
-            bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
+        var nominal = res[1]
+        if (res.length == 2) {
+            const kirim = await gojec.tfCustom(nomor, nominal);
+            if (!kirim) {
+                bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
+            } else {
+                const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
+                bot.sendMessage(msg.chat.id, suc);
+            }
+            await lapor(msg.from, nomor, kirim.success)
         } else {
-            const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
-            bot.sendMessage(msg.chat.id, suc);
+            const kirim = await gojec.doStuff(nomor);
+            if (!kirim) {
+                bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
+            } else {
+                const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
+                bot.sendMessage(msg.chat.id, suc);
+            }
+            await lapor(msg.from, nomor, kirim.success)
         }
-        await lapor(msg.from, nomor, kirim.success)
         resolve(true);
     });
 });
