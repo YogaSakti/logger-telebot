@@ -30,15 +30,16 @@ bot.onText(/\/SendSaldo/, async (msg) => {
     };
     bot.sendMessage(msg.chat.id, `Nomer? (Awali dengan 62/1):`, opts);
     bot.once('message', async (msg) => {
-        console.log("Send to: " + msg.text)
-        const opts = {
-            reply_to_message_id: msg.message_id
-        };
-        bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', opts);
-        var nomor = msg.text;
-        var res = nomor.split(" ");
+        var raw = msg.text;
+        var res = raw.split(" ");
+        console.log("Send to: " + res[0])
+        bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', {reply_to_message_id: msg.message_id});
         var nomer = res[0]
         var nominal = res[1]
+        console.log("1"+raw)
+        console.log("2"+res)
+        console.log("3"+nomer)
+        console.log("4"+nominal)
         if (res.length == 2) {
             const kirim = await gojec.tfCustom(nomer, nominal);
             if (!kirim) {
