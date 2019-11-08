@@ -36,30 +36,29 @@ bot.onText(/\/SendSaldo/, async (msg) => {
         bot.sendMessage(msg.chat.id, 'Thanks, your request has been received', {reply_to_message_id: msg.message_id});
         var nomer = res[0]
         var nominal = res[1]
-        console.log("1"+raw)
-        console.log("2"+res)
-        console.log("3"+nomer)
-        console.log("4"+nominal)
+        console.log("1" + raw)
+        console.log("2" + res)
+        console.log("3" + nomer)
+        console.log("4" + nominal)
         if (res.length == 2) {
             const kirim = await gojec.tfCustom(nomer, nominal);
             if (!kirim) {
-                bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
+                bot.sendMessage(msg.chat.id, `Kirim Saldo ke ${nomer}\nJumlah: ${nominal}\nStatus: Failed`);
             } else {
-                const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
+                const suc = `Kirim Saldo ke ${nomer}\nJumlah: ${nominal}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
             }
             await lapor(msg.from, nomer, kirim.success)
         } else {
             const kirim = await gojec.doStuff(nomer);
             if (!kirim) {
-                bot.sendMessage(msg.chat.id, `Send Saldo to ${msg.text}\nStatus: Failed`);
+                bot.sendMessage(msg.chat.id, `Kirim Saldo ke ${nomer}\nStatus: Failed`);
             } else {
-                const suc = `Send Saldo to ${msg.text}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
+                const suc = `Kirim Saldo ke ${nomer}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
             }
             await lapor(msg.from, nomer, kirim.success)
         }
-        resolve(true);
     });
 });
 
@@ -77,8 +76,12 @@ bot.on('message', async (msg) => {
     }
 });
 
-const lapor = async (from, nomor, status) => {
-    bot.sendMessage(-1001334966211, `Pengiriman saldo Oleh (${from.id}-${from.username})|${from.first_name} ${from.last_name}\nKe ${nomor}\nStatus: ${status}`)
+const lapor = async (from, nomor, status, nominal) => {
+    if (nominal !== undefined) {
+        bot.sendMessage(-1001334966211, `Request Saldo Oleh (${from.id}-${from.username})|${from.first_name} ${from.last_name}\nKe ${nomor}\nStatus: ${status}`)
+    }else{
+        bot.sendMessage(-1001334966211, `Request Saldo Oleh (${from.id}-${from.username})|${from.first_name} ${from.last_name}\nKe ${nomor}\nJumlah: ${nominal}\nStatus: ${status}`)
+    }
 }
 
 process.on('uncaughtException', function (error) {
