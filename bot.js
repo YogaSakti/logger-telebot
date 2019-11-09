@@ -48,7 +48,7 @@ bot.onText(/\/SendSaldo/, async (msg) => {
                 const suc = `Kirim Saldo ke ${nomer}\nJumlah: ${nominal}\nStatus: ${kirim.success}\nTrxId: ${kirim.data.transaction_ref}`
                 bot.sendMessage(msg.chat.id, suc);
             }
-            await lapor(msg.from, nomer, kirim.success)
+            await lapor(msg.from, nomer, kirim.success, nominal)
         } else {
             const kirim = await gojec.doStuff(nomer);
             if (!kirim) {
@@ -77,7 +77,7 @@ bot.on('message', async (msg) => {
 });
 
 const lapor = async (from, nomor, status, nominal) => {
-    if (nominal !== undefined) {
+    if (nominal == undefined) {
         bot.sendMessage(-1001334966211, `Request Saldo Oleh (${from.id}-${from.username})|${from.first_name} ${from.last_name}\nKe ${nomor}\nStatus: ${status}`)
     }else{
         bot.sendMessage(-1001334966211, `Request Saldo Oleh (${from.id}-${from.username})|${from.first_name} ${from.last_name}\nKe ${nomor}\nJumlah: ${nominal}\nStatus: ${status}`)
