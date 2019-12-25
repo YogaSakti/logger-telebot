@@ -126,7 +126,7 @@ async function tfCustom(Nomer, nominal) {
 
 // =========================================================================================
 
-const cekSaldo = () =>
+const cekAkun = () =>
 	new Promise(async(resolve, reject) => {
 		const url = `https://api.gojekapi.com/wallet/profile/detailed`;
 		const uniqid = await genUniqueId(16);
@@ -162,5 +162,5 @@ const cekSaldo = () =>
 module.exports = {
 	doStuff,
 	tfCustom,
-	cekSaldo
+	cekAkun
 }

@@ -7,7 +7,7 @@ const gojec = require('./gojec.js')
 
 const StartKeyboard = [
     ['/SendSaldo'],
-    ['/CekSaldo'],
+    ['/CekAkun'],
     ['/info']
 ]
 
@@ -69,10 +69,10 @@ bot.on('message', async (msg) => {
         console.log(msg)
         bot.sendMessage(msg.chat.id, JSON.parse(info));
     }
-    if (text == '/CekSaldo') {
-        var Saldo = await gojec.cekSaldo()
+    if (text == '/CekAkun') {
+        var Saldo = await gojec.cekAkun()
         console.log(Saldo)
-        bot.sendMessage(msg.chat.id, `Owner: ${Saldo.data.name}\nNumber: ${Saldo.data.mobile}\nSisa Saldo: ${Saldo.data.currency} ${Saldo.data.balance}\nAkun Locked?: ${Saldo.data.locked}\nPLEASE DONATE :)`);
+        bot.sendMessage(msg.chat.id, `Owner: ${Saldo.data.name}\nNumber: ${Saldo.data.mobile}\nSisa Saldo: ${Saldo.data.currency} ${Saldo.data.balance}\nAkun Locked?: ${Saldo.data.locked}`);
     }
 });
 
