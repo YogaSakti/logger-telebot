@@ -1,8 +1,8 @@
 {
-  "name": "logger",
+  "name": "io-logger",
   "version": "1.0.0",
-  "description": "Sample files to run a Telegram Bot with Heroku without [dyno sleeping](https://blog.heroku.com/app_sleeping_on_heroku).",
-  "main": "bot.js",
+  "description": "Telegram Bot with Heroku.",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
@@ -10,12 +10,10 @@
   "author": "yogs",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "delay": "^4.3.0",
-    "express": "^4.16.1",
     "instagram-web-api": "^2.0.0",
     "node-fetch": "^2.6.0",
-    "node-telegram-bot-api": "^0.30.0",
-    "start": "^5.1.0",
-    "tough-cookie-filestore2": "^1.0.0"
+    "node-telegram-bot-api": "^0.30.0"
   }
 }
