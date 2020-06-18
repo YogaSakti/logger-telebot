@@ -14,7 +14,7 @@ bot.onText(/(\/start)|(\/io)/, (msg) => {
             chat_id: answr.chat.id,
             message_id: answr.message_id
         }
-        bot.on('callback_query', async (data) => {
+        bot.on('callback_query', (data) => {
             switch (data.data) {
                 case 'gojek':
                     bot.editMessageReplyMarkup(inlineGojek, opts).then(async () => await functGojek(data.message))
@@ -86,7 +86,7 @@ ${manifest.join('\n')}
 
 // Section - Gojek
 
-const functGojek = (msg) => new Promise(async () => {
+const functGojek = (msg) => new Promise(() => {
     bot.on('callback_query', async (data) => {
         const akun = await gojec.cekAkun()
         const chatId = msg.chat.id
@@ -139,7 +139,7 @@ const functGojek = (msg) => new Promise(async () => {
     })
 })
 
-const lapor = async (from, nomor, status, nominal) => {
+const lapor = (from, nomor, status, nominal) => {
     if (nominal == undefined) {
         bot.sendMessage(-1001334966211, `Request Saldo Oleh (${from.id}-${from.username})|${from.first_name} ${from.last_name}\nKe ${nomor}\nStatus: ${status}`)
     } else {
