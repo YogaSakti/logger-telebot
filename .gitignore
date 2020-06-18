@@ -1,9 +1,5 @@
 node_modules/
 logger.code-workspace
 helper/instagram.js
-
 helper/promo.js
-
-helper/rajaonkir.js
-
 helper/test.js

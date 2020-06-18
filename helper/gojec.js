@@ -1,32 +1,34 @@
-const fetch = require('node-fetch');
-const uuidv4 = require('uuid/v4');
-var uuid = uuidv4();
+/* eslint-disable no-tabs */
+const fetch = require('node-fetch')
+const uuidv4 = require('uuid/v4')
+var uuid = uuidv4()
 
-const accessToken = process.env.accessTokenGojec;
+const accessToken = process.env.accessTokenGojec
 
 const genUniqueId = length =>
 	new Promise((resolve, reject) => {
-		var text = "";
+		var text = ''
 		var possible =
-			"abcdefghijklmnopqrstuvwxyz1234567890";
-		for (var i = 0; i < length; i++)
-			text += possible.charAt(Math.floor(Math.random() * possible.length));
-		resolve(text);
-	});
+			'abcdefghijklmnopqrstuvwxyz1234567890'
+		for (var i = 0; i < length; i++) {
+			text += possible.charAt(Math.floor(Math.random() * possible.length))
+		}
+		resolve(text)
+	})
 
-function randInt() {
-	return Math.floor((Math.random() * 50) + 10);
+function randInt () {
+	return Math.floor((Math.random() * 50) + 10)
 }
 
 const getqr = (accessToken, uuid, uniqid, phoneNumber) =>
 	new Promise((resolve, reject) => {
-		const url = `https://api.gojekapi.com/wallet/qr-code?phone_number=%2B${phoneNumber}`;
+		const url = `https://api.gojekapi.com/wallet/qr-code?phone_number=%2B${phoneNumber}`
 
 		fetch(url, {
 				method: 'GET',
 				headers: {
 					'X-Session-ID': uuid,
-					'Accept': 'application/json',
+					Accept: 'application/json',
 					'X-Platform': 'Android',
 					'X-UniqueId': uniqid,
 					'X-AppVersion': '3.34.1',
@@ -48,24 +50,24 @@ const getqr = (accessToken, uuid, uniqid, phoneNumber) =>
 			.catch(err => {
 				reject(err)
 			})
-	});
+	})
 
 const trnsfr = (accessToken, uuid, uniqid, qrid, nominal) =>
 	new Promise((resolve, reject) => {
-		const url = `https://api.gojekapi.com/v2/fund/transfer`;
+		const url = 'https://api.gojekapi.com/v2/fund/transfer'
 
-		// JANGAN LUPA JUMLAH SALDO YANG AKAN DI TF 
+		// JANGAN LUPA JUMLAH SALDO YANG AKAN DI TF
 		const boday = {
-			"amount": `${nominal}`,
-			"description": "💰",
-			"qr_id": `${qrid}`
-		};
+			amount: `${nominal}`,
+			description: '💰',
+			qr_id: `${qrid}`
+		}
 
 		fetch(url, {
 				method: 'POST',
 				headers: {
 					'X-Session-ID': uuid,
-					'Accept': 'application/json',
+					Accept: 'application/json',
 					'X-Platform': 'Android',
 					'X-UniqueId': uniqid,
 					'X-AppVersion': '3.34.1',
@@ -86,15 +88,11 @@ const trnsfr = (accessToken, uuid, uniqid, qrid, nominal) =>
 			.then(result => {
 				resolve(result)
 			})
-			.catch(err => {
-				return false
-				// reject(err)
-			})
-	});
+			.catch(err => resolve(err))
+	})
 
-
-async function doStuff(Nomer) {
-	const uniqueid = await genUniqueId(16);
+async function dotrnsfr (Nomer) {
+	const uniqueid = await genUniqueId(16)
 	const qrid = await getqr(accessToken, uuid, uniqueid, Nomer)
 	if (qrid.success) {
 		const kirimsaldo = await trnsfr(accessToken, uuid, uniqueid, qrid.data.qr_id, randInt())
@@ -105,12 +103,11 @@ async function doStuff(Nomer) {
 		console.log(`Status: ${JSON.stringify(qrid)}`)
 		return false
 	}
-
 }
 // =========================================================================================
 
-async function tfCustom(Nomer, nominal) {
-	const uniqueid = await genUniqueId(16);
+async function tfCustom (Nomer, nominal) {
+	const uniqueid = await genUniqueId(16)
 	const qrid = await getqr(accessToken, uuid, uniqueid, Nomer)
 	if (qrid.success) {
 		const kirimsaldo = await trnsfr(accessToken, uuid, uniqueid, qrid.data.qr_id, nominal)
@@ -121,15 +118,14 @@ async function tfCustom(Nomer, nominal) {
 		console.log(`Status: ${JSON.stringify(qrid)}`)
 		return false
 	}
-
 }
 
 // =========================================================================================
 
 const cekAkun = () =>
-	new Promise(async(resolve, reject) => {
-		const url = `https://api.gojekapi.com/wallet/profile/detailed`;
-		const uniqid = await genUniqueId(16);
+	new Promise(async (resolve, reject) => {
+		const url = 'https://api.gojekapi.com/wallet/profile/detailed'
+		const uniqid = await genUniqueId(16)
 		fetch(url, {
 				method: 'GET',
 				headers: {
@@ -147,20 +143,18 @@ const cekAkun = () =>
 					'X-AppId': 'com.gojek.app',
 					'X-AppVersion': '3.40.0',
 					'X-Session-ID': uuid,
-					'Content-Type': 'application/json',
+					'Content-Type': 'application/json'
 				}
 			})
 			.then(res => res.json())
 			.then(result => {
 				resolve(result)
 			})
-			.catch(err => {
-				reject(err)
-			})
-	});
+			.catch(err => reject(err))
+	})
 
 module.exports = {
-	doStuff,
+	dotrnsfr,
 	tfCustom,
 	cekAkun
 }
