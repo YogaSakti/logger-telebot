@@ -105,8 +105,8 @@ Sisa Saldo: ${akun.data.currency} ${akun.data.balance}
 Status Akun
 Pin: ${akun.data.pin_setup ? 'Aktif' : 'Tidak Aktif'}
 Kyc: ${akun.data.kyc_detail_status}
-PayLater: ${akun.data.preferences.p2p.enable ? 'Aktif' : 'Tidak Aktif'}
-Withdraw: ${akun.data.preferences.withdrawal.enable ? 'Aktif' : 'Tidak Aktif'}
+PayLater: ${akun.data.preferences.p2p.enabled ? 'Aktif' : 'Tidak Aktif'}
+Withdraw: ${akun.data.preferences.withdrawal.enabled ? 'Aktif' : 'Tidak Aktif'}
 Locked: ${akun.data.locked ? 'Ya' : 'Tidak'}`)
                 }
                 break
