@@ -95,10 +95,19 @@ const functGojek = (msg) => new Promise(() => {
                 if (akun.errors && akun.errors.length >= 1) {
                     bot.sendMessage(chatId, `Error: ${akun.errors[0].message}`)
                 } else {
-                    bot.sendMessage(chatId, `Owner: ${akun.data.name}\n\
-                    Number: ${akun.data.mobile}\n\
-                    Sisa Saldo: ${akun.data.currency} ${akun.data.balance}\n\
-                    Akun Locked?: ${akun.data.locked}`)
+                    bot.sendMessage(chatId, `
+Info Akun
+Nama: ${akun.data.name}
+Nomor: ${akun.data.mobile}
+Tipe Akun: ${akun.data.wallet_type}
+Sisa Saldo: ${akun.data.currency} ${akun.data.balance}
+
+Status Akun
+Pin: ${akun.data.pin_setup ? 'Aktif' : 'Tidak Aktif'}
+Kyc: ${akun.data.kyc_detail_status}
+PayLater: ${akun.data.preferences.p2p.enable ? 'Aktif' : 'Tidak Aktif'}
+Withdraw: ${akun.data.preferences.withdrawal.enable ? 'Aktif' : 'Tidak Aktif'}
+Locked: ${akun.data.locked ? 'Ya' : 'Tidak'}`)
                 }
                 break
             case 'SendSaldo':
