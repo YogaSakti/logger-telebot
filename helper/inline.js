@@ -27,6 +27,9 @@ const inlinecekResi = {
         }, {
             text: 'Ninja',
             callback_data: 'ninja'
+        }, {
+            text: 'Rex',
+            callback_data: 'rex'
         }],
         [{
             text: 'Back',

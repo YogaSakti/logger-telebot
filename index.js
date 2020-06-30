@@ -45,7 +45,7 @@ bot.on('message', async (msg) => {
 
 const functCekResi = (msg) => new Promise(() => {
     bot.on('callback_query', (answr) => {
-        if (['jne', 'jnt', 'pos', 'sicepat', 'ninja'].includes(answr.data)) {
+        if (['jne', 'jnt', 'pos', 'sicepat', 'ninja', 'rex'].includes(answr.data)) {
             const answrKurir = answr.data
             bot.sendMessage(msg.chat.id, 'Resinya? (reply)').then((ask) => {
                 bot.onReplyToMessage(ask.chat.id, ask.message_id, async (reply) => {

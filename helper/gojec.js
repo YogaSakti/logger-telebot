@@ -141,7 +141,7 @@ const cekAkun = () =>
 					'X-UniqueId': uniqid,
 					'X-Platform': 'Android',
 					'X-AppId': 'com.gojek.app',
-					'X-AppVersion': '3.40.0',
+					'X-AppVersion': '3.52.2',
 					'X-Session-ID': uuid,
 					'Content-Type': 'application/json'
 				}
