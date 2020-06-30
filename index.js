@@ -14,7 +14,7 @@ bot.onText(/(\/start)|(\/io)/, (msg) => {
             chat_id: answr.chat.id,
             message_id: answr.message_id
         }
-        bot.onne('callback_query', (data) => {
+        bot.once('callback_query', (data) => {
             switch (data.data) {
                 case 'gojek':
                     bot.editMessageReplyMarkup(inlineGojek, opts).then(async () => await functGojek(data.message))
