@@ -14,7 +14,7 @@ bot.onText(/(\/start)|(\/io)/, (msg) => {
             chat_id: answr.chat.id,
             message_id: answr.message_id
         }
-        bot.on('callback_query', (data) => {
+        bot.onne('callback_query', (data) => {
             switch (data.data) {
                 case 'gojek':
                     bot.editMessageReplyMarkup(inlineGojek, opts).then(async () => await functGojek(data.message))
@@ -44,7 +44,7 @@ bot.on('message', async (msg) => {
 })
 
 const functCekResi = (msg) => new Promise(() => {
-    bot.on('callback_query', (answr) => {
+    bot.once('callback_query', (answr) => {
         if (['jne', 'jnt', 'pos', 'sicepat', 'ninja', 'rex'].includes(answr.data)) {
             const answrKurir = answr.data
             bot.sendMessage(msg.chat.id, 'Resinya? (reply)').then((ask) => {
@@ -74,9 +74,7 @@ const functCekResi = (msg) => new Promise(() => {
            
 🚧 POD Detail\n
 ${manifest.join('\n')}
-           
-👩🏼‍💼 Kontak JNE\n\
-└ Kontak (https://www.jne.co.id/id/hubungi-kami/our-information)`
+`
                     bot.sendMessage(reply.chat.id, messageText.toString().trim())
                 })
             })
@@ -87,7 +85,7 @@ ${manifest.join('\n')}
 // Section - Gojek
 
 const functGojek = (msg) => new Promise(() => {
-    bot.on('callback_query', async (data) => {
+    bot.once('callback_query', async (data) => {
         const akun = await gojec.cekAkun()
         const chatId = msg.chat.id
         switch (data.data) {
